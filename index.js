@@ -17,7 +17,7 @@ app.get("/search-character", async (req, res) => {
     const name = req.query.name; 
 
     if (!name) {
-        return res.render("index.ejs", { name: "", characters: [] });
+        return res.render("searchCharacter.ejs", { name: "", characters: [] });
     }
 
     try {
@@ -28,10 +28,10 @@ app.get("/search-character", async (req, res) => {
         
 
         if (!characters) {
-            return res.render("index.ejs", { name, characters: [] });
+            return res.render("searchCharacter.ejs", { name, characters: [] });
         }
         
-        res.render("index.ejs", { name, characters } ) 
+        res.render("searchCharacter.ejs", { name, characters } ) 
     } catch (error) {
         console.log("Error fetching the character", error);
         res.status(500).send("No character found");
