@@ -38,6 +38,30 @@ app.get("/search-character", async (req, res) => {
     }
 })
 
+app.get("/search-spell", async (req, res) => {
+    const spell = req.query.spell; 
+
+    if (!spell) {
+        return res.render("searchSpell.ejs", { spell: "", spells: [] });
+    }
+
+    try {
+        const response = await axios.get(`${urlBase}/v1/spells`, {
+            params: { "filter[name_cont]": spell },  
+        });
+        const spells = response.data.data.map((spell) => spell.attributes); 
+        
+
+        if (!spells.length === 0) {
+            return res.render("searchSpell.ejs", { spell, spells: [] });
+        }
+        
+        res.render("searchSpell.ejs", { spell, spells } ) 
+    } catch (error) {
+        console.log("Error fetching the spell", error);
+        res.status(500).send("No spell found");
+    }
+})
 
 
 

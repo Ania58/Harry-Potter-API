@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles.css">
+    <title>Search Characters</title>
+</head>
+<body>
+    <main>
+        <h1>Search for Spells</h1>
+        <form method="GET" action="/search-spell">
+            <label for="spell">Spell:</label>
+            <input id="spell" name="spell" value="<%= spell || '' %>" />
+            <button type="submit">Search</button>
+        </form>
+
+        <% if (spells.length > 0) { %>
+            <h2>Matching Spells</h2>
+            <ul>
+                <% spells.forEach((spell) => { %>
+                    <li>
+                        <p><strong>Spell:</strong> <%= spell.name %></p>
+                        <p><strong>Effect:</strong> <%= spell.effect || 'Unknown' %></p>
+                        <% if (spell.image) { %>
+                            <img src="<%= spell.image %>" alt="<%= spell.name %>" style="max-width: 200px;" />
+                        <% } %>
+                        <a href="<%= spell.wiki %>" target="_blank">Read more</a>
+                    </li>
+                <% }) %>
+            </ul>
+        <% } else if (spell) { %>
+            <p>No matching spells found.</p>
+        <% } %>
+    </main>
+</body>
+</html>
