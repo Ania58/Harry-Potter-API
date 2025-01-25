@@ -63,6 +63,30 @@ app.get("/search-spell", async (req, res) => {
     }
 })
 
+app.get("/search-book", async (req, res) => {
+    const book = req.query.book; 
+
+    if (!book) {
+        return res.render("searchBook.ejs", { book: "", books: [] });
+    }
+
+    try {
+        const response = await axios.get(`${urlBase}/v1/books`, {
+            params: { "filter[title_cont]": book },  
+        });
+        const books = response.data.data.map((book) => book.attributes); 
+        
+
+        if (books.length === 0) {
+            return res.render("searchBook.ejs", { book, books: [] });
+        }
+        
+        res.render("searchBook.ejs", { book, books } ) 
+    } catch (error) {
+        console.log("Error fetching the book", error);
+        res.status(500).send("No book found");
+    }
+})
 
 
 
