@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/movie.css">
     <title>Search Movies</title>
 </head>
 <body>
-    <main>
+    <header>
         <nav>
             <ul>
                 <li><a href="/">Home</a></li>
@@ -17,30 +17,40 @@
             </ul>
         </nav>
         <h1>Search for Movies</h1>
-        <form method="GET" action="/search-movie">
-            <label for="movie">Movie:</label>
-            <input id="movie" name="movie" value="<%= movie || '' %>" />
-            <button type="submit">Search</button>
-        </form>
+    </header>
+    <main>
+        <section class="search-bar">
+            <form method="GET" action="/search-movie">
+                <label for="movie">Movie:</label>
+                <input id="movie" name="movie" value="<%= movie || '' %>" />
+                <button type="submit">Search</button>
+            </form>
+        </section>
 
         <% if (movies.length > 0) { %>
-            <h2>Matching Movies</h2>
-            <ul>
-                <% movies.forEach((movie) => { %>
-                    <li>
-                        <p><strong>Movie:</strong> <%= movie.title %></p>
-                        <p><strong>Release:</strong> <%= movie.release_date %></p>
-                        <p><strong>Summary:</strong> <%= movie.summary || 'Unknown' %></p>
-                        <% if (movie.poster) { %>
-                            <img src="<%= movie.poster %>" alt="<%= movie.title %>" style="max-width: 200px;" />
-                        <% } %>
-                        <a href="<%= movie.wiki %>" target="_blank">Read more</a>
-                        <a href="<%= movie.trailer %>" target="_blank">Watch trailer</a>
-                    </li>
-                <% }) %>
-            </ul>
+            <section class="results">
+                <h2>Matching Movies</h2>
+                <ul>
+                    <% movies.forEach((movie) => { %>
+                        <li class="movie-card">
+                            <h3><strong>Movie:</strong> <%= movie.title %></h3>
+                            <p><strong>Release:</strong> <%= movie.release_date || 'Unknown' %></p>
+                            <p><strong>Summary:</strong> <%= movie.summary || 'Not available'%></p>
+                            <% if (movie.poster) { %>
+                                <img src="<%= movie.poster %>" alt="<%= movie.title %>" />
+                            <% } %>
+                            <div class="links">
+                                <a href="<%= movie.wiki %>" target="_blank" class="learn-more">Read more</a>
+                                <% if (movie.trailer) { %>
+                                    <a href="<%= movie.trailer %>" target="_blank" class="watch-trailer">Watch trailer</a>
+                                <% } %>
+                            </div>
+                        </li>
+                    <% }) %>
+                </ul>
+            </section>
         <% } else if (movie) { %>
-            <p>No matching movies found.</p>
+            <p class="no-results">No matching movies found.</p>
         <% } %>
     </main>
 </body>
