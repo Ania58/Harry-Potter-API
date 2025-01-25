@@ -27,11 +27,11 @@ app.get("/search-character", async (req, res) => {
         const characters = response.data.data.map((char) => char.attributes); 
         
 
-        if (!characters) {
+        if (characters.length === 0) {
             return res.render("searchCharacter.ejs", { name, characters: [] });
         }
         
-        res.render("searchCharacter.ejs", { name, characters } ) 
+        return res.render("searchCharacter.ejs", { name, characters } ) 
     } catch (error) {
         console.log("Error fetching the character", error);
         res.status(500).send("No character found");
@@ -52,11 +52,11 @@ app.get("/search-spell", async (req, res) => {
         const spells = response.data.data.map((spell) => spell.attributes); 
         
 
-        if (!spells.length === 0) {
+        if (spells.length === 0) {
             return res.render("searchSpell.ejs", { spell, spells: [] });
         }
         
-        res.render("searchSpell.ejs", { spell, spells } ) 
+        return res.render("searchSpell.ejs", { spell, spells } ) 
     } catch (error) {
         console.log("Error fetching the spell", error);
         res.status(500).send("No spell found");
@@ -81,7 +81,7 @@ app.get("/search-book", async (req, res) => {
             return res.render("searchBook.ejs", { book, books: [] });
         }
         
-        res.render("searchBook.ejs", { book, books } ) 
+        return res.render("searchBook.ejs", { book, books } ) 
     } catch (error) {
         console.log("Error fetching the book", error);
         res.status(500).send("No book found");
@@ -106,19 +106,12 @@ app.get("/search-movie", async (req, res) => {
             return res.render("searchMovie.ejs", { movie, movies: [] });
         }
         
-        res.render("searchMovie.ejs", { movie, movies } ) 
+        return res.render("searchMovie.ejs", { movie, movies } ) 
     } catch (error) {
         console.log("Error fetching the movie", error);
         res.status(500).send("No movie found");
     }
 })
-
-
-
-
-
-
-
 
 
 app.listen(PORT, () => {
