@@ -88,6 +88,31 @@ app.get("/search-book", async (req, res) => {
     }
 })
 
+app.get("/search-movie", async (req, res) => {
+    const movie = req.query.movie; 
+
+    if (!movie) {
+        return res.render("searchMovie.ejs", { movie: "", movies: [] });
+    }
+
+    try {
+        const response = await axios.get(`${urlBase}/v1/movies`, {
+            params: { "filter[title_cont]": movie },  
+        });
+        const movies = response.data.data.map((movie) => movie.attributes); 
+        
+
+        if (movies.length === 0) {
+            return res.render("searchMovie.ejs", { movie, movies: [] });
+        }
+        
+        res.render("searchMovie.ejs", { movie, movies } ) 
+    } catch (error) {
+        console.log("Error fetching the movie", error);
+        res.status(500).send("No movie found");
+    }
+})
+
 
 
 
