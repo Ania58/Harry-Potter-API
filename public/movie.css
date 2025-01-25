@@ -94,6 +94,7 @@ header {
 h1 {
     font-size: 2.5rem;
     margin-bottom: 10px;
+    margin-top: 20px;
 }
 
 .search-bar {
@@ -222,4 +223,83 @@ button:hover {
     text-align: center;
     font-size: 1.5rem;
     margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+    body {
+        background-size: contain; 
+        background-position: center top; 
+    }
+
+    h1 {
+        font-size: 2rem;
+        margin-top: 20px;
+    }
+
+    .results ul {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+
+    .movie-card h3 {
+        font-size: 1.2rem;
+    }
+
+    .search-bar form {
+        flex-direction: column; 
+        align-items: center; 
+        gap: 10px; 
+    }
+
+    .search-bar input, .search-bar button {
+        width: 80%; 
+        max-width: 250px; 
+        font-size: 1.1rem; 
+    }
+
+    nav ul {
+        flex-direction: column; 
+        gap: 10px;
+    }
+
+    nav ul li:first-child {
+        margin-top: 0; 
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        background-size: cover;
+        background-position: center top; 
+    }
+
+    h1 {
+        font-size: 1.5rem;
+        margin-top: 15px;
+    }
+
+    .movie-card {
+        padding: 15px;
+    }
+
+    .movie-card h3 {
+        font-size: 1rem;
+    }
+
+    .search-bar form {
+        padding: 8px; 
+        gap: 8px;
+    }
+
+    .search-bar label, .search-bar input, .search-bar button {
+        font-size: 1rem; 
+        max-width: 100%; 
+    }
+
+    nav ul {
+        gap: 5px; 
+    }
+
+    nav ul li:first-child {
+        margin-top: 0; 
+    }
 }
