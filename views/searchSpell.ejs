@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/spell.css">
     <title>Search Spells</title>
 </head>
 <body>
-    <main>
+    <header>
         <nav>
             <ul>
                 <li><a href="/">Home</a></li>
@@ -17,28 +17,34 @@
             </ul>
         </nav>
         <h1>Search for Spells</h1>
-        <form method="GET" action="/search-spell">
-            <label for="spell">Spell:</label>
-            <input id="spell" name="spell" value="<%= spell || '' %>" />
-            <button type="submit">Search</button>
-        </form>
+    </header>
+    <main>
+        <section class="search-bar">
+            <form method="GET" action="/search-spell">
+                <label for="spell">Spell:</label>
+                <input id="spell" name="spell" value="<%= spell || '' %>" />
+                <button type="submit">Search</button>
+            </form>
+        </section>
 
         <% if (spells.length > 0) { %>
-            <h2>Matching Spells</h2>
-            <ul>
-                <% spells.forEach((spell) => { %>
-                    <li>
-                        <p><strong>Spell:</strong> <%= spell.name %></p>
-                        <p><strong>Effect:</strong> <%= spell.effect || 'Unknown' %></p>
-                        <% if (spell.image) { %>
-                            <img src="<%= spell.image %>" alt="<%= spell.name %>" style="max-width: 200px;" />
-                        <% } %>
-                        <a href="<%= spell.wiki %>" target="_blank">Read more</a>
-                    </li>
-                <% }) %>
-            </ul>
+            <section class="results">
+                <h2>Matching Spells</h2>
+                <ul>
+                    <% spells.forEach((spell) => { %>
+                        <li class="spell-card">
+                            <h3><strong>Spell:</strong> <%= spell.name %></h3>
+                            <p><strong>Effect:</strong> <%= spell.effect || 'Unknown' %></p>
+                            <% if (spell.image) { %>
+                                <img src="<%= spell.image %>" alt="<%= spell.name %>" />
+                            <% } %>
+                            <a href="<%= spell.wiki %>" target="_blank" class="learn-more">Read more</a>
+                        </li>
+                    <% }) %>
+                </ul>
+            </section>
         <% } else if (spell) { %>
-            <p>No matching spells found.</p>
+            <p class="no-results">No matching spells found.</p>
         <% } %>
     </main>
 </body>
