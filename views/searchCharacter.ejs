@@ -9,6 +9,13 @@
 <body>
     <main>
         <h1>Search for Characters</h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/search-spell">Search Spells</a></li>
+                <li><a href="/search-book">Search Books</a></li>
+            </ul>
+        </nav>
         <form method="GET" action="/search-character">
             <label for="name">Character Name:</label>
             <input id="name" name="name" value="<%= name || '' %>" />
