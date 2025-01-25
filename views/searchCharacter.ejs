@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/character.css">
     <title>Search Characters</title>
 </head>
 <body>
-    <main>
+    <header>
         <h1>Search for Characters</h1>
         <nav>
             <ul>
@@ -17,28 +17,33 @@
                 <li><a href="/search-movie">Search Movies</a></li>
             </ul>
         </nav>
-        <form method="GET" action="/search-character">
-            <label for="name">Character Name:</label>
-            <input id="name" name="name" value="<%= name || '' %>" />
-            <button type="submit">Search</button>
-        </form>
-
+    </header>
+    <main>
+        <section class="search-bar">
+            <form method="GET" action="/search-character">
+                <label for="name">Character Name:</label>
+                <input id="name" name="name" value="<%= name || '' %>" />
+                <button type="submit">Search</button>
+            </form>
+        </section>
         <% if (characters.length > 0) { %>
-            <h2>Matching Characters</h2>
-            <ul>
-                <% characters.forEach((character) => { %>
-                    <li>
-                        <p><strong>Name:</strong> <%= character.name %></p>
-                        <p><strong>House:</strong> <%= character.house || 'Unknown' %></p>
-                        <% if (character.image) { %>
-                            <img src="<%= character.image %>" alt="<%= character.name %>" style="max-width: 200px;" />
-                        <% } %>
-                        <a href="<%= character.wiki %>" target="_blank">Read more</a>
-                    </li>
-                <% }) %>
-            </ul>
+            <section class="results">
+                <h2>Matching Characters</h2>
+                <ul>
+                    <% characters.forEach((character) => { %>
+                        <li class="character-card">
+                            <h3><strong>Name:</strong> <%= character.name %></h3>
+                            <p><strong>House:</strong> <%= character.house || 'Unknown' %></p>
+                            <% if (character.image) { %>
+                                <img src="<%= character.image %>" alt="<%= character.name %>" style="max-width: 200px;" />
+                            <% } %>
+                            <a href="<%= character.wiki %>" target="_blank" class="learn-more">Read more</a>
+                        </li>
+                    <% }) %>
+                </ul>
+            </section>
         <% } else if (name) { %>
-            <p>No matching characters found.</p>
+            <p class="no-results">No matching characters found.</p>
         <% } %>
     </main>
 </body>
