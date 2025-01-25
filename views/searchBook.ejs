@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/book.css">
     <title>Search Books</title>
 </head>
 <body>
-    <main>
+    <header>
         <nav>
             <ul>
                 <li><a href="/">Home</a></li>
@@ -17,29 +17,35 @@
             </ul>
         </nav>
         <h1>Search for Books</h1>
-        <form method="GET" action="/search-book">
-            <label for="book">Book:</label>
-            <input id="book" name="book" value="<%= book || '' %>" />
-            <button type="submit">Search</button>
-        </form>
+    </header>
+    <main>
+        <section class="search-bar">
+            <form method="GET" action="/search-book">
+                <label for="book">Book:</label>
+                <input id="book" name="book" value="<%= book || '' %>" />
+                <button type="submit">Search</button>
+            </form>
+        </section>
 
         <% if (books.length > 0) { %>
-            <h2>Matching Books</h2>
-            <ul>
-                <% books.forEach((book) => { %>
-                    <li>
-                        <p><strong>Book:</strong> <%= book.title %></p>
-                        <p><strong>Release:</strong> <%= book.release_date %></p>
-                        <p><strong>Summary:</strong> <%= book.summary || 'Unknown' %></p>
-                        <% if (book.cover) { %>
-                            <img src="<%= book.cover %>" alt="<%= book.title %>" style="max-width: 200px;" />
-                        <% } %>
-                        <a href="<%= book.wiki %>" target="_blank">Read more</a>
-                    </li>
-                <% }) %>
-            </ul>
+            <section class="results">
+                <h2>Matching Books</h2>
+                <ul>
+                    <% books.forEach((book) => { %>
+                        <li class="book-card">
+                            <h3><strong>Book:</strong> <%= book.title %></h3>
+                            <p><strong>Release:</strong> <%= book.release_date || 'Unknown'%></p>
+                            <p><strong>Summary:</strong> <%= book.summary || 'Not available' %></p>
+                            <% if (book.cover) { %>
+                                <img src="<%= book.cover %>" alt="<%= book.title %>" style="max-width: 200px;" />
+                            <% } %>
+                            <a href="<%= book.wiki %>" target="_blank" class="learn-more">Read more</a>
+                        </li>
+                    <% }) %>
+                </ul>
+            </section>
         <% } else if (book) { %>
-            <p>No matching books found.</p>
+            <p class="no-results">No matching books found.</p>
         <% } %>
     </main>
 </body>
